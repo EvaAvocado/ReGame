@@ -111,6 +111,10 @@ public class Textbox : MonoBehaviour
         if (_chooseButton1 != null) _chooseButton1.gameObject.SetActive(false);
         if (_chooseButton2 != null) _chooseButton2.gameObject.SetActive(false);
         if (_chooseButton3 != null) _chooseButton3.gameObject.SetActive(false);
+        
+        _isButton = false;
+
+        gameObject.GetComponent<BoxCollider2D>().enabled = true;
     }
 
     public void InitializeTextbox(string dialogue, string nameButton1, string nameButton2)

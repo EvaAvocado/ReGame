@@ -54,6 +54,8 @@ public class DialogueController : MonoBehaviour
 
     private Action _actionAfterDialogue;
 
+    public List<GameObject> DialogueInstanceQue => dialogueInstanceQue;
+
     private bool
         firstQueIndex = false; //Lets us know if this is the first textbox in the current que (IMPROVE THIS PLEASE)
 
@@ -65,7 +67,7 @@ public class DialogueController : MonoBehaviour
     //Base method that only utilizes dialogue
 
     #region Instances
-    
+
     public void NewDialogueInstance(string dialogue, Action actionAfterDialogue)
     {
         GameObject newDialogueBox = Instantiate(dialogueBoxPrefab, dialogueBoxParent);
@@ -83,11 +85,13 @@ public class DialogueController : MonoBehaviour
 
         _actionAfterDialogue = actionAfterDialogue;
     }
-    
-    public void NewDialogueInstance(string dialogue, string buttonText1, string buttonText2, Action actionButton1, Action actionButton2)
+
+    public void NewDialogueInstance(string dialogue, string buttonText1, string buttonText2, Action actionButton1,
+        Action actionButton2)
     {
         GameObject newDialogueBox = Instantiate(dialogueBoxPrefab, dialogueBoxParent);
-        newDialogueBox.GetComponent<Textbox>().InitializeTextbox(ParseDialogueCustomStyle(dialogue), buttonText1, buttonText2, actionButton1, actionButton2);
+        newDialogueBox.GetComponent<Textbox>().InitializeTextbox(ParseDialogueCustomStyle(dialogue), buttonText1,
+            buttonText2, actionButton1, actionButton2);
         newDialogueBox.SetActive(false);
 
         dialogueInstanceQue.Add(newDialogueBox);
@@ -96,14 +100,15 @@ public class DialogueController : MonoBehaviour
             firstQueIndex = true;
             queIterationCoroutine = StartCoroutine(IterateQue());
         }
-        
+
         newDialogueBox.GetComponent<Textbox>().DialogueController = this;
     }
-    
+
     public void NewDialogueInstance(string dialogue, string buttonText1, Action actionButton2)
     {
         GameObject newDialogueBox = Instantiate(dialogueBoxPrefab, dialogueBoxParent);
-        newDialogueBox.GetComponent<Textbox>().InitializeTextbox(ParseDialogueCustomStyle(dialogue), buttonText1, actionButton2);
+        newDialogueBox.GetComponent<Textbox>()
+            .InitializeTextbox(ParseDialogueCustomStyle(dialogue), buttonText1, actionButton2);
         newDialogueBox.SetActive(false);
 
         dialogueInstanceQue.Add(newDialogueBox);
@@ -112,10 +117,10 @@ public class DialogueController : MonoBehaviour
             firstQueIndex = true;
             queIterationCoroutine = StartCoroutine(IterateQue());
         }
-        
+
         newDialogueBox.GetComponent<Textbox>().DialogueController = this;
     }
-    
+
     public void NewDialogueInstance(string dialogue, string buttonText1)
     {
         GameObject newDialogueBox = Instantiate(dialogueBoxPrefab, dialogueBoxParent);
@@ -128,10 +133,10 @@ public class DialogueController : MonoBehaviour
             firstQueIndex = true;
             queIterationCoroutine = StartCoroutine(IterateQue());
         }
-        
+
         newDialogueBox.GetComponent<Textbox>().DialogueController = this;
     }
-    
+
     public void NewDialogueInstance(string dialogue)
     {
         GameObject newDialogueBox = Instantiate(dialogueBoxPrefab, dialogueBoxParent);
@@ -147,7 +152,7 @@ public class DialogueController : MonoBehaviour
 
         newDialogueBox.GetComponent<Textbox>().DialogueController = this;
     }
-    
+
     #endregion
 
     private void OnEnable()
@@ -174,7 +179,7 @@ public class DialogueController : MonoBehaviour
         if (!firstPress)
         {
             if (queIterationCoroutine == null) return;
-            
+
             StopCoroutine(queIterationCoroutine);
             EndDialogue();
             firstPress = true;
@@ -251,7 +256,7 @@ public class DialogueController : MonoBehaviour
 
         firstQueIndex = false;
 
-        if (dialogueInstanceQue.Count > 0)
+        if (dialogueInstanceQue.Count > 0 && gameObject.activeSelf)
         {
             queIterationCoroutine = StartCoroutine(IterateQue());
         }
