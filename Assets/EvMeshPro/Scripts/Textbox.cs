@@ -365,7 +365,7 @@ public class Textbox : MonoBehaviour
 
             dialogueText.text = displayText;
 
-            if (audioSource != null)
+            if (audioSource != null && typeSpeed != 0)
             {
                 if (useAudioBlips)
                 {

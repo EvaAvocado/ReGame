@@ -78,7 +78,7 @@ public class DialogueController : MonoBehaviour
         if (queIterationCoroutine == null)
         {
             firstQueIndex = true;
-            queIterationCoroutine = StartCoroutine(IterateQue());
+            if(gameObject.activeSelf) queIterationCoroutine = StartCoroutine(IterateQue());
         }
 
         newDialogueBox.GetComponent<Textbox>().DialogueController = this;
@@ -147,10 +147,15 @@ public class DialogueController : MonoBehaviour
         if (queIterationCoroutine == null)
         {
             firstQueIndex = true;
-            queIterationCoroutine = StartCoroutine(IterateQue());
+            if(gameObject.activeSelf) queIterationCoroutine = StartCoroutine(IterateQue());
         }
 
         newDialogueBox.GetComponent<Textbox>().DialogueController = this;
+
+        _actionAfterDialogue = () =>
+        {
+
+        };
     }
 
     #endregion

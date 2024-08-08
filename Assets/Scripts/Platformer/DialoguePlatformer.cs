@@ -43,7 +43,7 @@ namespace Platformer
             DialogueController.instance.NewDialogueInstance("Не зря я, Шеймус Утка, выбрал именно Вас для этого задания! Вы сделали так, что игроки снова могут наслаждаться своими играми!");
             DialogueController.instance.NewDialogueInstance("Но мы всё ещё в опасности");
             DialogueController.instance.NewDialogueInstance(
-                "То что Бюро Контроль+Альт+Делита подверглось [RED]саботажу[/RED] — дурной знак.\nИ мы обязаны докопаться до истины как можно скорее!",
+                "То что Бюро Контроль+Альт+Делита подверглось [RED]саботажу[/RED] — дурной знак.\n\nИ мы обязаны докопаться до истины как можно скорее!",
                 "ОК!", LoadNextLevel);
             
         }

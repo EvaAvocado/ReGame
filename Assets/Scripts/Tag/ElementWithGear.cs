@@ -7,26 +7,40 @@ namespace Tag
     {
         public Animator animator;
         public ParticleSystem particle;
-        public bool isCanMove;
+        public bool isCanMove = true;
+        public bool isWithGear;
 
+        private bool _isSabotage;
         private int _counter;
 
         public static event Action OnReadyElement;
         
-        private void OnMouseDown()
+        public void MouseDown()
         {
-            if (_counter < 5)
+            if (!isCanMove)
             {
-                animator.Play("twitch");
-                particle.Play();
-                _counter++;
-                isCanMove = true;
-
-                if (_counter == 5)
+                if (_counter < 5)
                 {
-                    OnReadyElement?.Invoke();
+                    animator.Play("twitch");
+                    particle.Play();
+                    _counter++;
+
+                    if (_counter == 5)
+                    {
+                        isCanMove = true;
+                    }
                 }
             }
+        }
+
+        public void OnReady()
+        {
+            if (!_isSabotage)
+            {
+                OnReadyElement?.Invoke();
+                _isSabotage = true;
+            }
+            
         }
     }
 }
