@@ -1,5 +1,10 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using Gears;
+using Shovel;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace LoadingScreen
 {
@@ -9,21 +14,31 @@ namespace LoadingScreen
         public int count;
         public bool isReady;
 
+        private List<Slider> sliders = new List<Slider>();
+
         public static event Action OnAllCount;
         
         private void OnEnable()
         {
             LoadByPlayer.OnReadySlider += AddCount;
+            SliderGearLoading.OnReadySlider += AddCount;
+            LoadByShovel.OnReadySlider += AddCount;
         }
         
         private void OnDisable()
         {
             LoadByPlayer.OnReadySlider -= AddCount;
+            SliderGearLoading.OnReadySlider -= AddCount;
+            LoadByShovel.OnReadySlider -= AddCount;
         }
 
-        private void AddCount()
+        private void AddCount(Slider slider)
         {
-            count++;
+            if (!sliders.Contains(slider))
+            {
+                count++;
+                sliders.Add(slider);
+            }
         }
 
         private void Update()

@@ -44,8 +44,7 @@ public class GameControl : MonoBehaviour
             startPosX = posXreset;
         }
 
-        if (!PlayerPrefs.HasKey("Puzzle")) StartNewGame();
-        else Load();
+        StartNewGame();
     }
 
     public void StartNewGame()
@@ -145,7 +144,7 @@ public class GameControl : MonoBehaviour
         //int v = Random.Range(0, 3);
         GameObject clone = new GameObject();
         //grid[h, v] = clone; // размещаем пустой объект в случайную клетку
-        grid[0, 0] = clone;
+        grid[1, 0] = clone;
 
         for (int y = 0; y < 3; y++)
         {
@@ -168,11 +167,8 @@ public class GameControl : MonoBehaviour
             Destroy(puzzleRandom[q]); // очистка временного массива
         }
     }
-
-    // проверка на выигрыш
-    static public void GameFinish()
-    {
-        int i = 1;
+    
+    /*int i = 1;
         for (int y = 0; y < 3; y++)
         {
             for (int x = 0; x < 3; x++)
@@ -184,8 +180,41 @@ public class GameControl : MonoBehaviour
                 else i = 1;
             }
         }
+        if (i==9) isWin = true;
+        */
 
-        if (i == 9)
+    // проверка на выигрыш
+    static public void GameFinish()
+    {
+        var isWin = false;
+        var counter = 0;
+        
+        if (grid[0, 0]) if (grid[0, 0].GetComponent<Puzzle>().ID == 7) counter++;
+        if (grid[1, 0]) if (grid[1, 0].GetComponent<Puzzle>().ID == 6) counter++;
+        if (grid[2, 0]) if (grid[2, 0].GetComponent<Puzzle>().ID == 2) counter++;
+        if (grid[0, 1]) if (grid[0, 1].GetComponent<Puzzle>().ID == 5) counter++;
+        if (grid[1, 1]) if (grid[1, 1].GetComponent<Puzzle>().ID == 8) counter++;
+        if (grid[0, 2]) if (grid[0, 2].GetComponent<Puzzle>().ID == 4) counter++;
+        if (grid[1, 2]) if (grid[1, 2].GetComponent<Puzzle>().ID == 1) counter++;
+        if (grid[2, 2]) if (grid[2, 2].GetComponent<Puzzle>().ID == 3) counter++;
+
+        print("_________________________" + counter);
+        for (int y = 0; y < 3; y++)
+        {
+            for (int x = 0; x < 3; x++)
+            {
+                if (grid[x, y])
+                {
+                    print(grid[x, y].GetComponent<Puzzle>().ID + "-" + x + "-" + y);
+                }
+            }
+        }
+        print("_________________________" + counter);
+
+        if (counter == 8) isWin = true;
+        
+
+        if (isWin)
         {
             for (int y = 0; y < 3; y++)
             {

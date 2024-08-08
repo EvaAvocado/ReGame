@@ -8,24 +8,37 @@ namespace Items.Gears
 {
     public class GearsQueue : MonoBehaviour
     {
-        [SerializeField] private List<PlaceToGear> _placeToGears;
+        public List<PlaceToGear> gearList1;
+        public List<PlaceToGear> gearList2;
+        public List<PlaceToGear> gearList3;
+        
 
         private void OnEnable()
         {
             MyButton.OnButtonUp += StopAll;
-            MyButton.OnButtonDown += CheckRotation;
+            MyButton.OnButtonDown += OnButtonDown;
         }
         
         private void OnDisable()
         {
             MyButton.OnButtonUp -= StopAll;
-            MyButton.OnButtonDown -= CheckRotation;
+            MyButton.OnButtonDown -= OnButtonDown;
         }
 
 
         private void Awake()
         {
-            foreach (var place in _placeToGears)
+            foreach (var place in gearList1)
+            {
+                place.GearsQueue = this;
+            }
+            
+            foreach (var place in gearList2)
+            {
+                place.GearsQueue = this;
+            }
+            
+            foreach (var place in gearList3)
             {
                 place.GearsQueue = this;
             }
@@ -33,24 +46,50 @@ namespace Items.Gears
 
         public void StopAll()
         {
-            foreach (var place in _placeToGears)
+            foreach (var place in gearList1)
             {
                 if (place.GearInPlace != null)
                 {
                     place.GearInPlace.StopGear();
+                    place.GearInPlace.CheckGear(false);
+                }
+            }
+            
+            foreach (var place in gearList2)
+            {
+                if (place.GearInPlace != null)
+                {
+                    place.GearInPlace.StopGear();
+                    place.GearInPlace.CheckGear(false);
+                }
+            }
+            
+            foreach (var place in gearList3)
+            {
+                if (place.GearInPlace != null)
+                {
+                    place.GearInPlace.StopGear();
+                    place.GearInPlace.CheckGear(false);
                 }
             }
         }
 
-        public void CheckRotation()
+        private void OnButtonDown()
         {
-            for (int i = 0; i < _placeToGears.Count; i++)
-            {
-                if (_placeToGears[i].GearInPlace != null)
-                {
-                    _placeToGears[i].GearInPlace.IsRight = i % 2 == 0;
+            CheckRotation(gearList1);
+            CheckRotation(gearList2);
+            CheckRotation(gearList3);
+        }
 
-                    _placeToGears[i].GearInPlace.RotateGear();
+        private void CheckRotation(List<PlaceToGear> list)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].GearInPlace != null && list[i].GearInPlace.bigGear == list[i].bigGear)
+                {
+                    list[i].GearInPlace.IsRight = i % 2 == 0;
+                    list[i].GearInPlace.RotateGear();
+                    list[i].GearInPlace.CheckGear(true);
                 }
                 else
                 {

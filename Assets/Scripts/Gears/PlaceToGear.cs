@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Gears;
 using UnityEngine;
 using Utils;
 
@@ -10,6 +11,7 @@ namespace Items.Gears
         [SerializeField] private LayerMask _item;
         [SerializeField] private bool _isNotInteractable;
         [SerializeField] private Gear _gearInPlace;
+        public bool bigGear;
 
         private GearsQueue _gearsQueue;
         private bool _isCanInteract = true;

@@ -1,3 +1,5 @@
+using Platformer.FSM;
+
 namespace FSM.States
 {
     public class IdleCharacterState : CharacterState

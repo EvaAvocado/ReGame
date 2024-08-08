@@ -1,7 +1,7 @@
-using Creatures;
+using Platformer.Creatures;
 using UnityEngine;
 
-namespace Core
+namespace Platformer
 {
     public class EntryPoint : MonoBehaviour
     {
@@ -10,7 +10,7 @@ namespace Core
 
         private void Awake()
         {
-            if (_character != null) _character.Init();
+            //if (_character != null) _character.Init();
             if (_spawnPlatformCanvas != null) _spawnPlatformCanvas.gameObject.SetActive(true);
         }
     }

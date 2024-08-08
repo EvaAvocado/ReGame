@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
+using FSM;
 using FSM.States;
 
-namespace FSM
+namespace Platformer.FSM
 {
     public class CharacterStateMachine
     {

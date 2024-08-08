@@ -8,12 +8,18 @@ namespace LoadingScreen
     {
         public Slider slider;
         public bool isReady;
+        public bool isGear;
         
         private bool _isFast = true;
         public bool isInteractable;
 
-        public static event Action OnReadySlider;
-        
+        public static event Action<Slider> OnReadySlider;
+
+        public void Awake()
+        {
+            slider = GetComponent<Slider>();
+        }
+
         public void ValueChanged(float value)
         {
             float max = 99f;
@@ -29,7 +35,7 @@ namespace LoadingScreen
 
             if (value >= slider.maxValue * 0.99f)
             {
-                OnReadySlider?.Invoke();
+                OnReadySlider?.Invoke(slider);
                 isReady = true;
             }
         }
@@ -69,7 +75,13 @@ namespace LoadingScreen
         private void Click()
         {
             //if (DialogueController.instance.DialogueInstanceQue.Count > 0) DialogueController.instance.EndDialogue();
-            if (_isFast)
+            
+            /*if (isGear)
+            {
+                slider.value += 20f;
+            } else */
+            
+            if (_isFast) //&& !isGear)
             {
                 slider.value += 6f;
             }

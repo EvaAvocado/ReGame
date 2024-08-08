@@ -1,13 +1,18 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace Items.Gears
+namespace Gears
 {
     public class Gear : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer _sprite;
         [SerializeField] private float _rotateSpeed;
         [SerializeField] private bool _isCanDrag;
+        public bool bigGear;
+        
+        public bool mainGear;
+        public List<SliderGearLoading> sliders;
         
         private bool _isCanRotate;
         
@@ -75,6 +80,17 @@ namespace Items.Gears
             {
                 OnStopMoving?.Invoke();
                 _isBeingHeld = false;
+            }
+        }
+
+        public void CheckGear(bool status)
+        {
+            if (mainGear)
+            {
+                foreach (var slider in sliders)
+                {
+                    slider.SetIsCanLoading(status);
+                }
             }
         }
     }

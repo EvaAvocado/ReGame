@@ -2,11 +2,12 @@ using System;
 using FSM;
 using FSM.States;
 using Items;
+using Platformer.FSM;
 using UI;
 using UnityEngine;
 using Utils;
 
-namespace Creatures
+namespace Platformer.Creatures
 {
     public class Character : MonoBehaviour
     {
@@ -14,12 +15,14 @@ namespace Creatures
         [SerializeField] private float _jumpForce;
         [SerializeField] private LayerMask _wallLayer;
         [SerializeField] private LayerMask _platformLayer;
-        [SerializeField] private LayerMask _itemLayer;
+        //[SerializeField] private LayerMask _itemLayer;
+        [SerializeField] private LayerMask _exitLayer;
         [SerializeField] private Animator _animator;
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private Rigidbody2D _rb;
         [SerializeField] private PointsInPlatformer _points;
 
+        private Vector3 _startPos;
         private float _currentSpeed;
         private bool _isJumping;
         private CharacterStateMachine _characterStateMachine;
@@ -27,8 +30,9 @@ namespace Creatures
         private static readonly int IsRunning = Animator.StringToHash("is-running");
         private static readonly int IsJumping = Animator.StringToHash("is-jumping");
 
-        public void Init()
+        public void Awake()
         {
+            _startPos = gameObject.transform.position;
             _characterStateMachine = new CharacterStateMachine();
             _characterStateMachine.EnterIn<IdleCharacterState>();
         }
@@ -88,6 +92,13 @@ namespace Creatures
             }
         }
 
+        private void Spawn()
+        {
+            transform.position = _startPos;
+            _characterStateMachine.EnterIn<IdleCharacterState>();
+            _rb.velocity = Vector2.zero;
+        }
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (_wallLayer.Contains(other.gameObject.layer))
@@ -100,14 +111,14 @@ namespace Creatures
                 _characterStateMachine.EnterIn<JumpCharacterState>();
             }
             
-            if (_itemLayer.Contains(other.gameObject.layer))
+            /*if (_itemLayer.Contains(other.gameObject.layer))
             {
                 if (other.TryGetComponent(out Star star))
                 {
                     star.DeleteThis();
                     _points.AddScore();
                 }
-            }
+            }*/
         }
 
         private void OnCollisionEnter2D(Collision2D other)
@@ -115,6 +126,14 @@ namespace Creatures
             if (_platformLayer.Contains(other.gameObject.layer))
             {
                 _characterStateMachine.EnterIn<RunCharacterState>();
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (_exitLayer.Contains(other.gameObject.layer))
+            {
+                Spawn();
             }
         }
     }
