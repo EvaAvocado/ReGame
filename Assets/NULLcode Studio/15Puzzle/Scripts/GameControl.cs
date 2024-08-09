@@ -28,6 +28,7 @@ namespace NULLcode_Studio._15Puzzle.Scripts
         public static bool win;
         
         private bool _isFirstStart = true;
+        public bool isFindGear;
 
         public static event Action OnReady;
 
@@ -114,6 +115,11 @@ namespace NULLcode_Studio._15Puzzle.Scripts
             }
         }
 
+        public void ReloadPuzzle()
+        {
+            RandomPuzzle();
+        }
+
         int FindPuzzle(int index)
         {
             int j = 0;
@@ -162,7 +168,17 @@ namespace NULLcode_Studio._15Puzzle.Scripts
                         grid[x, y] = Instantiate(puzzleRandom[i], position[x, y], Quaternion.identity) as GameObject;
                         grid[x, y].name = "ID-" + i;
                         grid[x, y].transform.parent = transform;
-                        if (!_isFirstStart) grid[x, y].GetComponent<Puzzle>().isCanMove = true;
+                        if (!_isFirstStart)
+                        {
+                            grid[x, y].GetComponent<Puzzle>().isCanMove = true;
+                        }
+
+                        if (isFindGear)
+                        {
+                            grid[x, y].GetComponent<Puzzle>().element.isCanMove = true;
+                            grid[x, y].GetComponent<Puzzle>().element.isSabotage = true;
+                        }
+                        
                         _isFirstStart = false;
                         i++;
                     }

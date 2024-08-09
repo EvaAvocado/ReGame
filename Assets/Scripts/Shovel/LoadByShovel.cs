@@ -31,16 +31,16 @@ namespace Shovel
         {
             float max = 100f;
             
-            if (value >= 75f && value <= max)
+            /*if (value >= 75f && value <= max)
             {
                 _isFast = false;
             }
             else
             {
                 _isFast = true;
-            }
+            }*/
 
-            if (value >= slider.maxValue)
+            if (value >= 10f)
             {
                 OnReadySlider?.Invoke(slider);
             }
@@ -48,7 +48,9 @@ namespace Shovel
 
         private void Click()
         {
-            if (_isFast)
+            slider.value += 0.5f;
+            
+            /*if (_isFast)
             {
                 slider.value += 6/2.5f;
             }
@@ -56,7 +58,7 @@ namespace Shovel
             else if (!_isFast)
             {
                 slider.value += 2/2.5f;
-            }
+            }*/
         }
     }
 }

@@ -26,7 +26,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Shovel.unity
     guid: bf728c3b7340fb24bafd517093812274
-  - enabled: 1
-    path: Assets/Scenes/Exit.unity
-    guid: 4b8c23f9dc54c0340af292baddda6ea9
   m_configObjects: {}

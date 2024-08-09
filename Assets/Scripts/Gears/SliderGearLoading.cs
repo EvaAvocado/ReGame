@@ -35,15 +35,15 @@ namespace Gears
             ScreensCounter.OnAllCount -= GearsReady;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (isCanLoading && !_stop)
             {
                 _isNeedToComplete = true;
                 if (_timeLeft > 0)
                 {
-                    _timeLeft -= Time.deltaTime;
-                    _slider.value += 0.05f;
+                    _timeLeft -= Time.fixedDeltaTime;
+                    _slider.value += 1f;
                 }
                 else
                 {
@@ -55,8 +55,8 @@ namespace Gears
             {
                 if (_timeLeft2 > 0)
                 {
-                    _timeLeft2 -= Time.deltaTime;
-                    _slider.value -= 0.1f;
+                    _timeLeft2 -= Time.fixedDeltaTime;
+                    _slider.value -= 2f;
                 }
                 else
                 {

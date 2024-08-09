@@ -10,19 +10,23 @@ namespace Tag
         public bool isCanMove = true;
         public bool isWithGear;
 
-        private bool _isSabotage;
+        public bool isSabotage;
         private int _counter;
 
         public static event Action OnReadyElement;
         
         public void MouseDown()
         {
-            if (!isCanMove)
+            if (!isCanMove && !isSabotage)
             {
                 if (_counter < 5)
                 {
-                    animator.Play("twitch");
-                    particle.Play();
+                    if(animator) animator.Play("twitch");
+                    if(particle) particle.Play();
+                    else
+                    {
+                        return;
+                    }
                     _counter++;
 
                     if (_counter == 5)
@@ -35,10 +39,10 @@ namespace Tag
 
         public void OnReady()
         {
-            if (!_isSabotage)
+            if (!isSabotage)
             {
                 OnReadyElement?.Invoke();
-                _isSabotage = true;
+                isSabotage = true;
             }
             
         }

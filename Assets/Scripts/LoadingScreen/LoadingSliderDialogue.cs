@@ -50,7 +50,7 @@ namespace LoadingScreen
 
         private IEnumerator TimerToNextSlider()
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
             _isReady = true;
             NextSlider();
         }

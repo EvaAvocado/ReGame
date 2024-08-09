@@ -55,7 +55,8 @@ namespace NULLcode_Studio._15Puzzle.Scripts
 		// определение пустой клетки, рядом с текущей, по горизонтали или вертикали
 		void OnMouseDown()
 		{
-			if(isCanMove){
+			if(isCanMove)
+			{
 				for (int y = 0; y < 3; y++)
 				{
 					for (int x = 0; x < 3; x++)

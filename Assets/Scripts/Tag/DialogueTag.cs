@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Core;
 using NULLcode_Studio._15Puzzle.Scripts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -21,6 +22,8 @@ namespace Tag
 
         public Button restartButton;
 
+        public GameControl gameControl;
+
         private bool _isGetSolution;
         private bool _isSabotage;
 
@@ -40,6 +43,7 @@ namespace Tag
 
         private void Start()
         {
+            AudioManager.instance.ChangeClip(5);
             DialogueController.instance.NewDialogueInstance("Вот и головоломка!");
             DialogueController.instance.NewDialogueInstance(
                 "Что тут у нас? Английская H? Русская Н? Дядюшка Рисёч их разберет!");
@@ -78,6 +82,7 @@ namespace Tag
                 "Тут побывал наш [RED]саботажник[/RED]! Это повод для тревоги");
             DialogueController.instance.NewDialogueInstance("Продолжайте пока работу, Агент!", "OK!", () =>
             {
+                gameControl.isFindGear = true;
                 gear.PlayAnim();
                 OnTagGame?.Invoke(true);
                 restartButton.interactable = true;

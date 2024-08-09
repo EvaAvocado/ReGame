@@ -1,4 +1,5 @@
 using System;
+using Core;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,6 +24,7 @@ namespace Platformer
         
         private void Start()
         {
+            AudioManager.instance.ChangeClip(3);
             DialogueController.instance.NewDialogueInstance("По Вашему левому клику мыши будут появляться платформы");
             DialogueController.instance.NewDialogueInstance("Помогите этим беспутным игрокам, которым лишь бы попрыгать с края, собрать все звезды!", "ОК.", (() =>
             {

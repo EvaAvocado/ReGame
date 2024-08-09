@@ -1,7 +1,10 @@
 using System;
+using System.Collections;
+using Core;
 using LoadingScreen;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 
 namespace Shovel
 {
@@ -9,6 +12,10 @@ namespace Shovel
     {
         public GameObject slider;
         public Shovel shovel;
+        public Animator exitAnimator;
+        public VideoPlayer player;
+
+        private float _videoDuration;
         
         private void OnEnable()
         {
@@ -22,11 +29,13 @@ namespace Shovel
         
         private void Start()
         {
+            player.url = System.IO.Path.Combine(Application.streamingAssetsPath, "video.mp4");
+            
+            AudioManager.instance.OffMusic();
             DialogueController.instance.NewDialogueInstance("Поэтому, Агент 0x2A, вот Вам лопата!");
             DialogueController.instance.NewDialogueInstance("Копайте!");
             DialogueController.instance.NewDialogueInstance("За мир во всем Игромире! ");
-            DialogueController.instance.NewDialogueInstance("Вперед!");
-            DialogueController.instance.NewDialogueInstance("А вернее — вниз!");
+            DialogueController.instance.NewDialogueInstance("Вперед!\nА вернее — вниз!");
             DialogueController.instance.NewDialogueInstance("Да пребудет с Вами масса помноженная на ускорение!", "Копать? Я не хочу копать!", "Так точно, Сэр!", IDontWantDigging, Digging);
         }
 
@@ -49,7 +58,7 @@ namespace Shovel
         {
             slider.SetActive(true);
             shovel.isCanDigging = true;
-            DialogueController.instance.NewDialogueInstance("Вперед! Кликайте!", () =>
+            DialogueController.instance.NewDialogueInstance("Кликайте, Агент!\n", () =>
             {
                 
             });
@@ -57,7 +66,26 @@ namespace Shovel
         
         private void Ready()
         {
-            SceneManager.LoadScene("Exit");
+            exitAnimator.Play("exit");
+        }
+
+        public void EndAnimation()
+        {
+            shovel.isCanDigging = false;
+            
+            player.gameObject.SetActive(true);
+            player.Play();
+            print(player.clip.length);
+            
+            _videoDuration = (float) player.clip.length;
+
+            StartCoroutine(TimerToGoStartGame());
+        }
+
+        private IEnumerator TimerToGoStartGame()
+        {
+            yield return new WaitForSeconds(_videoDuration);
+            SceneManager.LoadScene("StartScene");
         }
     }
 }

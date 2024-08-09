@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Core;
 using LoadingScreen;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -53,6 +54,7 @@ namespace Gears
         {
             if (status)
             {
+                AudioManager.instance.ChangeClip(2);
                 checkbox.SetActive(false);
                 gearsMechanism.SetActive(true);
                 StartCoroutine(TimerAfterCheckBoxOn());

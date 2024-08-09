@@ -1,3 +1,4 @@
+using Core;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -30,9 +31,13 @@ namespace EvMeshPro.Scripts.Dialogues
             topDialogue.SetActive(false);
             bottomDialogue.SetActive(false);
             bigDialogue3.SetActive(true);
+
+            AudioManager.instance.ChangeClip(1);
+            //GetComponent<AudioSource>().Play();     
             
             DialogueController.instance.NewDialogueInstance("Приветствую, Агент 0x2A.");
-            DialogueController.instance.NewDialogueInstance("Во время летних каникул и отпусков количество пользователей существенно возросло. Штатные сотрудники не справляются. Мы даже не успеваем [WAVE]ВОЗВРАЩАТЬ ИГРЫ В ИСХОДНОЕ СОСТОЯНИЕ![/WAVE] А открывать игру и видеть, что ее уже кто-то прошел — совсем не весело.");
+            DialogueController.instance.NewDialogueInstance("Во время летних каникул и отпусков количество пользователей существенно возросло. Штатные сотрудники не справляются");
+            DialogueController.instance.NewDialogueInstance("Мы даже не успеваем [WAVE]ВОЗВРАЩАТЬ ИГРЫ В ИСХОДНОЕ СОСТОЯНИЕ![/WAVE] А открывать игру и видеть, что ее уже кто-то прошел — совсем не весело.");
             DialogueController.instance.NewDialogueInstance("Мы срочно нуждаемся в Вашей помощи!");
             DialogueController.instance.NewDialogueInstance("От этого зависит судьба Игромира.");
             DialogueController.instance.NewDialogueInstance("Искренне Ваш,\nШ. Утка,\nДиректор Федерального Бюро Контроль+Альт+Делита", "ОК", () => FirstTask());

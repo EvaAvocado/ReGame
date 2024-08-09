@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Shovel
 {
@@ -8,6 +9,8 @@ namespace Shovel
     {
         public ParticleSystem particle;
         public bool isCanDigging;
+        public AudioSource source;
+        public AudioClip[] audioClips;
 
         public static event Action OnClick;
 
@@ -28,6 +31,9 @@ namespace Shovel
                     new Vector3(particle.transform.position.x, particle.transform.position.y,
                         particle.transform.position.z), Quaternion.identity);
                 newParticle.Play();
+
+                source.clip = audioClips[Random.Range(0, 4)];
+                source.Play();
 
                 OnClick?.Invoke();
 
