@@ -10,6 +10,8 @@ namespace Gears
         [SerializeField] private float _rotateSpeed;
         [SerializeField] private bool _isCanDrag;
         public bool bigGear;
+        public Vector3 startPos;
+        public Rigidbody2D rb;
         
         public bool mainGear;
         public List<SliderGearLoading> sliders;
@@ -45,6 +47,8 @@ namespace Gears
         private void Awake()
         {
             _camera = Camera.main;
+            startPos = transform.position;
+            rb = GetComponent<Rigidbody2D>();
         }
 
         private void Update()
@@ -66,7 +70,8 @@ namespace Gears
         {
             if (Input.GetMouseButtonDown(0) && _isCanDrag)
             {
-                gameObject.GetComponent<Rigidbody2D>().simulated = true;
+                rb.simulated = true;
+                rb.freezeRotation = true;
                 
                 OnStartMoving?.Invoke(this);
                 _startPos = _camera.ScreenToWorldPoint(Input.mousePosition) - transform.localPosition;
@@ -78,6 +83,8 @@ namespace Gears
         {
             if (Input.GetMouseButtonUp(0) && _isCanDrag)
             {
+                rb.freezeRotation = false;
+                
                 OnStopMoving?.Invoke();
                 _isBeingHeld = false;
             }

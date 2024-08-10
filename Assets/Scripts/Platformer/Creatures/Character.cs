@@ -21,6 +21,7 @@ namespace Platformer.Creatures
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private Rigidbody2D _rb;
         [SerializeField] private PointsInPlatformer _points;
+        public GameObject parent;
 
         private Vector3 _startPos;
         private float _currentSpeed;
@@ -92,11 +93,14 @@ namespace Platformer.Creatures
             }
         }
 
-        private void Spawn()
+        public void Spawn()
         {
-            transform.position = _startPos;
-            _characterStateMachine.EnterIn<IdleCharacterState>();
-            _rb.velocity = Vector2.zero;
+            if (parent.activeSelf)
+            {
+                transform.position = _startPos;
+                _characterStateMachine.EnterIn<IdleCharacterState>();
+                _rb.velocity = Vector2.zero;
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D other)

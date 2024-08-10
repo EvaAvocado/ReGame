@@ -10,6 +10,7 @@ namespace Platformer
         [SerializeField] private TMP_Text _scoreText;
         public int neededPoints = 7;
         private int _score = 0;
+        public AudioSource source;
 
         private List<Star> _stars = new List<Star>();
 
@@ -24,6 +25,7 @@ namespace Platformer
         {
             if (!_stars.Contains(star))
             {
+                source.Play();
                 _score++;
                 _scoreText.text = _score.ToString() + "/" + neededPoints;
                 _stars.Add(star);

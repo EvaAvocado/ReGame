@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ namespace LoadingScreen
     public class LoadingSliderDialogue : MonoBehaviour
     {
         public Slider slider;
+        public TMP_Text text;
 
         private bool _isCanNext;
         private bool _isReady;
@@ -26,7 +28,11 @@ namespace LoadingScreen
 
         private void NextSlider()
         {
-            slider.DOValue(1f, 2f).OnComplete(()=>OnReadySlider?.Invoke());
+            slider.DOValue(1f, 2f).OnComplete(()=>
+            {
+                text.text = "Готово";
+                OnReadySlider?.Invoke();
+            });
         }
 
         private void OnMouseEnter()

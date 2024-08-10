@@ -18,6 +18,8 @@ namespace Gears
         private bool _isNeedToComplete;
         private bool _stop;
 
+        private bool _isReadyTrue;
+
         public static event Action<Slider> OnReadySlider;
 
         private void Awake()
@@ -51,7 +53,7 @@ namespace Gears
                 }
             }
             
-            if (!isCanLoading && _isNeedToComplete && !_stop)
+            if (!isCanLoading && _isNeedToComplete && !_stop && !_isReadyTrue)
             {
                 if (_timeLeft2 > 0)
                 {
@@ -73,6 +75,7 @@ namespace Gears
             {
                 OnReadySlider?.Invoke(_slider);
                 _isReady = true;
+                _isReadyTrue = true;
             }
         }
 

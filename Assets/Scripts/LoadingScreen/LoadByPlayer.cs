@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ namespace LoadingScreen
         public Slider slider;
         public bool isReady;
         public bool isGear;
+        public TMP_Text text;
         
         private bool _isFast = true;
         public bool isInteractable;
@@ -35,6 +37,7 @@ namespace LoadingScreen
 
             if (value >= slider.maxValue * 0.99f)
             {
+                text.text = "Готово";
                 OnReadySlider?.Invoke(slider);
                 isReady = true;
             }

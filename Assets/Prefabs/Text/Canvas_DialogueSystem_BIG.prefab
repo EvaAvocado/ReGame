@@ -155,7 +155,7 @@ MonoBehaviour:
   dialogueBoxPrefab: {fileID: 6938210103049046939, guid: 77148807db932474fa08d1ba91fd9277, type: 3}
   dialogueBoxParent: {fileID: 5189307422825668862}
   textTypeSpeed: 0.03
-  delayAfterEndPhrase: 4
+  delayAfterEndPhrase: 5
   characterList: {fileID: 11400000, guid: e50a748e793113849ba3e50c33d8925b, type: 2}
   textStyleList: {fileID: 11400000, guid: 8adebc72f9f6a604dbfb0a8fc89f141b, type: 2}
   lerpDialogueBoxesIn: 1

@@ -17,6 +17,7 @@ namespace Gears
         public GameObject gearsMechanism;
         public GameObject otherGears;
         public List<LoadByPlayer> sliders;
+        public GameObject buttonRestart;
         
         private void OnEnable()
         {
@@ -43,6 +44,11 @@ namespace Gears
         private IEnumerator TimerAfterStart()
         {
             yield return new WaitForSeconds(4.5f);
+            foreach (var slider in sliders)
+            {
+                slider.isInteractable = false;
+            }
+            
             DialogueController.instance.NewDialogueInstance("М-да, тут уже нужна бы автоматизация", () => { });
             DialogueController.instance.NewDialogueInstance("Агент, даю разрешение на открытие наладочной панели. Действуйте!", "Ок", () =>
             {
@@ -63,11 +69,12 @@ namespace Gears
         
         private IEnumerator TimerAfterCheckBoxOn()
         {
-            yield return new WaitForSeconds(6f);
+            yield return new WaitForSeconds(4f);
             DialogueController.instance.NewDialogueInstance("Этот механизм кто-то намерено [RED]саботировал[/RED]", () => { });
             DialogueController.instance.NewDialogueInstance("Но на это сейчас нет времени — надо все вернуть на круги своя!",
                 () =>
                 {
+                    buttonRestart.SetActive(true);
                     otherGears.SetActive(true);
                 });
             StopAllCoroutines();

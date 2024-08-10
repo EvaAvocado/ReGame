@@ -12,17 +12,17 @@ EditorBuildSettings:
     path: Assets/Scenes/Gears.unity
     guid: 1b0b54e3df6be8a4da43c4c7b57ca899
   - enabled: 1
-    path: Assets/Scenes/Platformer.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
-  - enabled: 1
     path: Assets/Scenes/LoadGame.unity
     guid: caf737e219a58dd45a70f9b1528838b3
+  - enabled: 1
+    path: Assets/Scenes/TagGame.unity
+    guid: e9e8179d2c257994098ceadcef3e68ac
   - enabled: 1
     path: Assets/Scenes/LoadingScreen.unity
     guid: 8376b041762edde4fa54038c0e3dec40
   - enabled: 1
-    path: Assets/Scenes/TagGame.unity
-    guid: e9e8179d2c257994098ceadcef3e68ac
+    path: Assets/Scenes/Platformer.unity
+    guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
     path: Assets/Scenes/Shovel.unity
     guid: bf728c3b7340fb24bafd517093812274

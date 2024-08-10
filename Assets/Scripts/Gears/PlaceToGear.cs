@@ -66,7 +66,7 @@ namespace Items.Gears
 
         private void SetGearInPlace(Gear gear)
         {
-            gear.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+            gear.rb.bodyType = RigidbodyType2D.Static;
             gear.GetComponent<CircleCollider2D>().isTrigger = true;
 
             gear.transform.position = transform.position;
@@ -74,7 +74,7 @@ namespace Items.Gears
             _isCanInteract = false;
         }
 
-        private void DeleteGearOutPlace(Gear gear)
+        public void DeleteGearOutPlace(Gear gear)
         {
             if (gear == _gearInPlace)
             {

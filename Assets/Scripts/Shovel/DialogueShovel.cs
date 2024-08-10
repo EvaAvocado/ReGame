@@ -13,7 +13,8 @@ namespace Shovel
         public GameObject slider;
         public Shovel shovel;
         public Animator exitAnimator;
-        public VideoPlayer player;
+        //public VideoPlayer player;
+        public AudioSource source;
 
         private float _videoDuration;
         
@@ -29,7 +30,7 @@ namespace Shovel
         
         private void Start()
         {
-            player.url = System.IO.Path.Combine(Application.streamingAssetsPath, "video.mp4");
+            //player.url = System.IO.Path.Combine(Application.streamingAssetsPath, "video.mp4");
             
             AudioManager.instance.OffMusic();
             DialogueController.instance.NewDialogueInstance("Поэтому, Агент 0x2A, вот Вам лопата!");
@@ -72,19 +73,21 @@ namespace Shovel
         public void EndAnimation()
         {
             shovel.isCanDigging = false;
+            exitAnimator.Play("logo");
+            source.Play();
             
-            player.gameObject.SetActive(true);
-            player.Play();
-            print(player.clip.length);
-            
-            _videoDuration = (float) player.clip.length;
+            //player.gameObject.SetActive(true);
+            //player.Play();
 
-            StartCoroutine(TimerToGoStartGame());
+            //print(player.clip.length);
+            //_videoDuration = (float) player.clip.length;
+
+            //StartCoroutine(TimerToGoStartGame());
         }
 
-        private IEnumerator TimerToGoStartGame()
+        public void StartGame()
         {
-            yield return new WaitForSeconds(_videoDuration);
+            //yield return new WaitForSeconds(_videoDuration);
             SceneManager.LoadScene("StartScene");
         }
     }
